@@ -35,10 +35,11 @@ const Day = ({ day, isWeekend, belongTo }) => {
             const dateString = date.toLocaleDateString('en-EN', { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' });
             dispatch(updateDateString(store, dateString));
         }
+        
     };
 
     return (
-        <div className={ `day ${ isWeekend ? 'weekend' : '' } ${ belongTo }` } onClick={ updateDate }>
+        <div className={ `day ${ isWeekend ? 'weekend' : 'NotWeekend' } ${ belongTo }` } onClick={ updateDate }>
             <h3>{ day }</h3>
         </div>
     );

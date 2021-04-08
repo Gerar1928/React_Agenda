@@ -7,7 +7,7 @@ $font-stack: 'Titillium Web', sans-serif;
     background-color: #6C6768;
     border: none;
     border-radius: 10px;
-    color: #ffffff;
+    color: $primary-color;
     font-family: $font-stack;
     font-size: 15px;
     font-weight: bold;
@@ -29,26 +29,12 @@ body {
     margin: 5px 0 0 0;
 }
 
-#root {
+.secondary-container {
     display: grid;
     gap: 5px;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(9, 82px);
-
-    // .header {
-    //     align-items: center;
-    //     background-color: #6C6768;
-    //     color: $primary-color;
-    //     display: flex;
-    //     grid-column: 1 / 11;
-    //     grid-row: 1 / 2;
-    //     justify-content: center;
-    //     text-align: center;
-
-    //     h1 {
-    //         margin: 0;
-    //     }
-    // }
+    z-index: 0;
 
     .calendar {
         color: $primary-color;
@@ -151,7 +137,7 @@ body {
             background-color: #28527a;
             border: none;
             border-radius: 5px;
-            color: #ffffff;
+            color: $primary-color;
             display: grid;
             gap: 5px;
             grid-template-columns: repeat(3, 1fr);
@@ -175,6 +161,7 @@ body {
                 @extend %button;
                 grid-column: 2 / 3;
                 grid-row: 2 / 3;
+                transform: scale(0);
             }
 
             .remove-event {
@@ -208,3 +195,75 @@ body {
         }
     }
 }
+
+.modal {
+    background-color: $primary-color;
+    border: solid 1px #6C6768;
+    border-radius: 10px;
+    display: block;
+    padding: 10px;
+    position: fixed;
+    right: 35%;
+    transform: scale(0);
+    transition: transform 0.4s linear;
+    top: 20%;
+    width: 350px;
+    z-index: 1;
+
+    button {
+        @extend %button;
+        border: none;
+        border-radius: 5px !important;
+        display: block;
+        margin: 5px auto;
+        padding: 5px;
+    }
+
+    h1 {
+        margin: 0;
+        text-align: center;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+    }
+
+    input{
+        color: #000000;
+        display: block;
+        font-family: $font-stack;
+        padding: 2px;
+        width: 200px;
+    }
+
+    textarea {
+        display: block;
+        margin-bottom: 15px;
+        resize: none;
+        width: 200px;
+    }
+
+    form {
+        margin: 2px auto;
+        width: 200px;
+    }
+
+}
+
+.overlay {
+    background-color: rgba($color: #6C6768, $alpha: 0.5);
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: fixed;
+    right: 0;
+    transform: scale(0);
+    top: 0;
+    z-index: 0;
+}
+
+.active {
+    transform: scale(1) !important;
+}
+
