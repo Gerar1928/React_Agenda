@@ -18,6 +18,10 @@ $font-stack: 'Titillium Web', sans-serif;
         cursor: pointer;
         transition: background-color 0.5s ease;
     }
+
+    &:focus {
+        outline: none;
+    }
 }
 
 * {
@@ -97,7 +101,7 @@ body {
             display: grid;
             gap: 1px;
             grid-template-columns: repeat(7, 1fr);
-            grid-template-rows: repeat(5, 1fr);
+            grid-template-rows: repeat(6, 1fr);
             grid-column: 1 / 8;
             grid-row: 3 / 10;
 
@@ -112,6 +116,7 @@ body {
                 }
 
                 h3 {
+                    display: inline;
                     margin: 0;
                 }
             }
@@ -168,6 +173,7 @@ body {
                 @extend %button;
                 grid-column: 3 / 4;
                 grid-row: 2 / 3;
+                transform: scale(0);
             }
 
             h1 {
@@ -206,7 +212,7 @@ body {
     right: 35%;
     transform: scale(0);
     transition: transform 0.4s linear;
-    top: 20%;
+    top: 10%;
     width: 350px;
     z-index: 1;
 
@@ -219,14 +225,14 @@ body {
         padding: 5px;
     }
 
+    form {
+        margin: 2px auto;
+        width: 200px;
+    }
+
     h1 {
         margin: 0;
         text-align: center;
-    }
-
-    label {
-        display: block;
-        font-weight: bold;
     }
 
     input{
@@ -235,20 +241,30 @@ body {
         font-family: $font-stack;
         padding: 2px;
         width: 200px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
     }
 
     textarea {
         display: block;
+        font-family: $font-stack;
+        height: 100px;
         margin-bottom: 15px;
+        padding: 5px;
         resize: none;
         width: 200px;
-    }
 
-    form {
-        margin: 2px auto;
-        width: 200px;
+        &:focus {
+            outline: none;
+        }
     }
-
 }
 
 .overlay {

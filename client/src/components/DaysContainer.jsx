@@ -7,7 +7,7 @@ const DaysContainer = ({ addBtnRef }) => {
 
     return (
         <div className = 'daysContainer' onClick={ (e) => {
-            if (e.target.classList.contains('currentMonth') || e.target.classList.contains('nextMonth')) {
+            if (e.target.classList.contains('currentMonth')) {
                 addBtnRef.current.classList.add('active');
             } else {
                 addBtnRef.current.classList.remove('active');

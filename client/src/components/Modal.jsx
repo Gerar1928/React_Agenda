@@ -1,9 +1,7 @@
+import { useSelector } from 'react-redux';
 import Button from './Button';
 
 const Modal = ({ modalRef, overlayRef }) => {
-
-    // const monthsArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
     return (
         <>
             <div className='modal' ref={ modalRef }>
@@ -12,11 +10,11 @@ const Modal = ({ modalRef, overlayRef }) => {
                     <label>Name</label>
                     <input type='text' name='event-name' required/>
                     <label>Month</label>
-                    <input type='number'/>
+                    <input type='text' value={ useSelector(store => store.content.month) }readOnly/>
                     <label>Day</label>
-                    <input type='number'/>
+                    <input type='number' value={ useSelector(store => store.content.daySelected) } readOnly/>
                     <label>Year</label>
-                    <input type='text'/>
+                    <input type='number' value= { useSelector(store => store.content.fullYear) } readOnly/>
                     <label>Description</label>
                     <textarea name='event-description' required></textarea>
                     <Button action={ 'Submit Event' }/>

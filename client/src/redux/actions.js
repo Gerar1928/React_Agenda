@@ -1,5 +1,7 @@
 import { getMonthDays, getPrevMonthDays, getNextMonthDays } from './store.js';
 
+const monthsArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 const getNextMonth = (fullYear, monthIndex) => {
     if (monthIndex === 11) {
         const nextYear = (fullYear + 1);
@@ -8,6 +10,8 @@ const getNextMonth = (fullYear, monthIndex) => {
             content: {
                 monthIndex: 0,
                 fullYear: nextYear,
+                month: monthsArr[0],
+                daySelected: 0,
                 days: {
                     prevMonthDays: getPrevMonthDays(nextYear, 0),
                     currentMonthDays: getMonthDays(nextYear, 0),
@@ -21,8 +25,10 @@ const getNextMonth = (fullYear, monthIndex) => {
         return {
             type: 'NEXT_MONTH',
             content: {
-                monthIndex: (monthIndex + 1),
+                monthIndex: nextMonthIndex,
                 fullYear: fullYear,
+                month: monthsArr[nextMonthIndex],
+                daySelected: 0,
                 days: {
                     prevMonthDays: getPrevMonthDays(fullYear, nextMonthIndex),
                     currentMonthDays: getMonthDays(fullYear, nextMonthIndex),
@@ -42,6 +48,8 @@ const getPrevMonth = (fullYear, monthIndex) => {
             content: {
                 monthIndex: 11,
                 fullYear: prevYear,
+                month: monthsArr[11],
+                daySelected: 0,
                 days: {
                     prevMonthDays: getPrevMonthDays(prevYear, 11),
                     currentMonthDays: getMonthDays(prevYear, 11),
@@ -57,6 +65,8 @@ const getPrevMonth = (fullYear, monthIndex) => {
             content: {
                 monthIndex: (monthIndex - 1),
                 fullYear: fullYear,
+                month: monthsArr[prevMonthIndex],
+                daySelected: 0,
                 days: {
                     prevMonthDays: getPrevMonthDays(fullYear, prevMonthIndex),
                     currentMonthDays: getMonthDays(fullYear, prevMonthIndex),
@@ -68,11 +78,12 @@ const getPrevMonth = (fullYear, monthIndex) => {
     }
 }; 
 
-const updateDateString = (stateContent, localDateString) => {
+const updateDateString = (stateContent, daySelected, localDateString) => {
     return {
         type: 'UPDATE_DATE_STRING',
         content: {
             ...stateContent, 
+            daySelected: daySelected,
             localeDateString: localDateString
         }
     }

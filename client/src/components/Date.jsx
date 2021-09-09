@@ -9,7 +9,7 @@ const Date = () => {
     const dateString = useSelector(store => store.content.localeDateString);
     const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const goToNextMonth = () => {
         dispatch(getNextMonth(fullYear, currentMonth));

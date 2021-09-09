@@ -3,8 +3,8 @@ import { reducer } from './reducer.js';
 
 const now = new Date();
 const monthIndex = now.getMonth();
+const monthsArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const fullYear = now.getFullYear();
-// const date = now.toLocaleDateString('en-EN', { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' });
 
 const getMonthDays = (year, month) => {
     const currentMonthLastDay = new Date(year, month + 1, 0).getDate();
@@ -59,7 +59,9 @@ const getNextMonthDays = (year, month) => {
 const initialState = {
     content: {
         monthIndex, 
-        fullYear, 
+        fullYear,
+        month: monthsArr[monthIndex],
+        daySelected: 0,
         days: {
             prevMonthDays: getPrevMonthDays(fullYear, monthIndex),
             currentMonthDays: getMonthDays(fullYear, monthIndex),
