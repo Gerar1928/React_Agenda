@@ -1,7 +1,13 @@
 import Button from './Button';
 import Event from './Event';
 
-const EventsContainer = ({ addBtnRef, modalRef, overlayRef }) => {
+const EventsContainer = ({ addButtonRef, modalRef, overlayRef }) => {
+
+    // Opens modal when clicking.
+    const openModal = () => {
+        modalRef.current.classList.add('active');
+        overlayRef.current.classList.add('active');
+    }
 
     return (
         <div className='eventsContainer'>
@@ -10,10 +16,7 @@ const EventsContainer = ({ addBtnRef, modalRef, overlayRef }) => {
                     <h1>Event Options</h1>
                 </div>
                 <Button action='Show events' buttonClass='show-events'/>
-                <Button action='Add event' buttonClass='add-event' btnRef={ addBtnRef } handleClick={ () => {
-                    modalRef.current.classList.add('active');
-                    overlayRef.current.classList.add('active');
-                } } />
+                <Button action='Add event' buttonClass='add-event' btnRef={ addButtonRef } handleClick={ openModal } />
                 <Button action='Remove event' buttonClass='remove-event'/>
             </div>
             <div className='events'>

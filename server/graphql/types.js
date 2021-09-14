@@ -3,7 +3,7 @@ const { db } = require('../firebase.js');
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 const Timestamp = new GraphQLObjectType({
     name: 'Timestamp',
@@ -21,22 +21,22 @@ const Timestamp = new GraphQLObjectType({
             type: GraphQLInt
         }
     })
-})
+});
 
 const AgendaEvent = new GraphQLObjectType({
     name: 'Events',
     description: 'List of current month events',
     fields: () => ({
-        Id: {
+        id: {
             type: GraphQLString
         },
-        Name: {
+        name: {
             type: GraphQLString
         },
-        Timestamp: {
+        timestamp: {
             type: new GraphQLList(Timestamp)
         },
-        Description: {
+        description: {
             type: GraphQLString
         }
     })
@@ -46,7 +46,7 @@ const RootSchema = new GraphQLObjectType({
     name: 'RootSchema',
     description: 'RootSchema to store events',
     fields: () => ({
-        Event: {
+        event: {
             type: new GraphQLList(AgendaEvent),
             resolve: async () => {
                 const snapshot = await db.collection('Events').get();
@@ -54,15 +54,15 @@ const RootSchema = new GraphQLObjectType({
                 snapshot.forEach(doc => {
                     const date = new Date(doc.data().Timestamp.toDate());
                     const event = {
-                        Id: doc.id,
-                        Name: doc.data().Name,
-                        Timestamp: [{
+                        id: doc.id,
+                        name: doc.data().Name,
+                        timestamp: [{
                             date: date.getDate(),
                             day: days[date.getDay()],
                             month: months[date.getMonth()],
                             year: date.getFullYear()
                         }],
-                        Description: doc.data().Description
+                        description: doc.data().Description
                     }
 
                     events.push(event);

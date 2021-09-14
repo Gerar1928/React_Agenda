@@ -1,21 +1,23 @@
 import { useSelector } from 'react-redux';
 import Day from './Day';
 
-const DaysContainer = ({ addBtnRef }) => {
+const DaysContainer = ({ addButtonRef }) => {
 
-    const { prevMonthDays, currentMonthDays, nextMotnhDays } = useSelector(state => state.content.days);
+    const { prevMonthDays, currentMonthDays, nextMonthDays } = useSelector(state => state.content.days);
+  
+    const handleAddEventBtn = (e) => {
+        if (!e.target.classList.contains('currentMonth')) {
+            addButtonRef.current.classList.remove('active');
+        } else {
+            addButtonRef.current.classList.add('active');
+        }
+    }
 
     return (
-        <div className = 'daysContainer' onClick={ (e) => {
-            if (e.target.classList.contains('currentMonth')) {
-                addBtnRef.current.classList.add('active');
-            } else {
-                addBtnRef.current.classList.remove('active');
-            }
-        } }>
-            { prevMonthDays.map((dayObj, index) => <Day key={ index } day={ dayObj.day } isWeekend={ dayObj.weekend } belongTo='prevMonth'/>) }
-            { currentMonthDays.map((dayObj, index) => <Day key= { index } day={ dayObj.day } isWeekend={ dayObj.weekend } belongTo='currentMonth'/>) }
-            { nextMotnhDays.map((dayObj, index) => <Day key={ index } day={ dayObj.day } isWeekend={ dayObj.weekend } belongTo='nextMonth'/>) }
+        <div className = 'daysContainer' onClick={ handleAddEventBtn }>
+            { prevMonthDays.map((day_obj, index) => <Day key={ index } day={ day_obj.day } isWeekend={ day_obj.weekend } belongTo='prevMonth'/>) }
+            { currentMonthDays.map((day_obj, index) => <Day key= { index } day={ day_obj.day } isWeekend={ day_obj.weekend } belongTo='currentMonth'/>) }
+            { nextMonthDays.map((day_obj, index) => <Day key={ index } day={ day_obj.day } isWeekend={ day_obj.weekend } belongTo='nextMonth'/>) }
         </div>
     );
 };

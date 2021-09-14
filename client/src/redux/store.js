@@ -1,12 +1,11 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { reducer } from './reducer.js';
 
 const now = new Date();
-const monthIndex = now.getMonth();
 const monthsArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const fullYear = now.getFullYear();
 
-const getMonthDays = (year, month) => {
+const getCurrentMonthDays = (year, month) => {
     const currentMonthLastDay = new Date(year, month + 1, 0).getDate();
     const daysArr = [];
 
@@ -58,19 +57,20 @@ const getNextMonthDays = (year, month) => {
 
 const initialState = {
     content: {
-        monthIndex, 
-        fullYear,
-        month: monthsArr[monthIndex],
+        monthIndex: now.getMonth(),
+        year: now.getFullYear(),
+        month: monthsArr[now.getMonth()],
         daySelected: 0,
         days: {
-            prevMonthDays: getPrevMonthDays(fullYear, monthIndex),
-            currentMonthDays: getMonthDays(fullYear, monthIndex),
-            nextMotnhDays: getNextMonthDays(fullYear, monthIndex)
+            prevMonthDays: getPrevMonthDays(now.getFullYear(), now.getMonth()),
+            currentMonthDays: getCurrentMonthDays(now.getFullYear(), now.getMonth()),
+            nextMonthDays: getNextMonthDays(now.getFullYear(), now.getMonth())
         },
-        localeDateString: ''
+        localeDateString: '',
+        events: []
     }
 };
 
-const store = createStore(reducer, initialState);
+const store = createStore(reducer, initialState, applyMiddleware(thunk));
 
-export { store, getMonthDays, getPrevMonthDays, getNextMonthDays }; 
+export { store, getCurrentMonthDays, getPrevMonthDays, getNextMonthDays }; 
