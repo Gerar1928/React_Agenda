@@ -7,6 +7,15 @@ import Modal from './components/Modal';
 
 const App = () => {
 
+    const testGraphql = async () => {
+        const res = await fetch('http://localhost:9000/graphql')
+        const data = await res.json();
+
+        console.log(data);
+    }
+
+    testGraphql();
+
     const addBtnRef = useRef(null);
     const modalRef = useRef(null);
     const overlayRef = useRef(null);
