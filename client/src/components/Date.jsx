@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import { getNextMonth, getPrevMonth } from '../redux/actions.js';
+import { getNextMonth, getPrevMonth, getMonthEvents } from '../redux/actions.js';
 
 const Date = () => {
 
+    useSelector(store => console.log(store.content));
     const currentMonth = useSelector(store => store.content.monthIndex);
     const year = useSelector(store => store.content.year);
     const dateString = useSelector(store => store.content.localeDateString);
@@ -12,11 +13,11 @@ const Date = () => {
     const dispatch = useDispatch();
 
     const goToNextMonth = () => {
-        dispatch(getNextMonth(year, currentMonth));
+        dispatch(getMonthEvents(year, currentMonth, getNextMonth));
     };
 
     const goToPrevtMonth = () => {
-        dispatch(getPrevMonth(year, currentMonth));
+        dispatch(getMonthEvents(year, currentMonth, getPrevMonth));
     };
 
     return (

@@ -2,7 +2,7 @@ import { getCurrentMonthDays, getPrevMonthDays, getNextMonthDays } from './store
 
 const monthsArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const getNextMonth = (year, monthIndex) => {
+const getNextMonth = (year, monthIndex, events) => {
     if (monthIndex === 11) {
         const nextYear = (year + 1);
         return {
@@ -17,7 +17,8 @@ const getNextMonth = (year, monthIndex) => {
                     currentMonthDays: getCurrentMonthDays(nextYear, 0),
                     nextMonthDays: getNextMonthDays(nextYear, 0)
                 }, 
-                localeDateString: ''
+                localeDateString: '',
+                events: events.data.event
             }
         };
     } else {
@@ -34,13 +35,14 @@ const getNextMonth = (year, monthIndex) => {
                     currentMonthDays: getCurrentMonthDays(year, nextMonthIndex),
                     nextMonthDays: getNextMonthDays(year, nextMonthIndex)
                 },
-                localeDateString: ''
+                localeDateString: '',
+                events: events.data.event
             }
         };
     }
 };
 
-const getPrevMonth = (year, monthIndex) => {
+const getPrevMonth = (year, monthIndex, events) => {
        if (monthIndex === 0) {
         const prevYear = (year - 1);
         return {
@@ -55,7 +57,8 @@ const getPrevMonth = (year, monthIndex) => {
                     currentMonthDays: getCurrentMonthDays(prevYear, 11),
                     nextMonthDays: getNextMonthDays(prevYear, 11)
                 },
-                localeDateString: ''
+                localeDateString: '',
+                events: events.data.event
             }
         };
     } else {
@@ -72,7 +75,8 @@ const getPrevMonth = (year, monthIndex) => {
                     currentMonthDays: getCurrentMonthDays(year, prevMonthIndex),
                     nextMonthDays: getNextMonthDays(year, prevMonthIndex)
                 },
-                localeDateString: ''
+                localeDateString: '',
+                events: events.data.event
             }
         };
     }
@@ -89,4 +93,36 @@ const updateDateString = (stateContent, daySelected, localDateString) => {
     }
 }
 
-export { getNextMonth, getPrevMonth, updateDateString };
+const getMonthEvents = (year, monthIndex, actionFunc) => {
+    return async dispatch => {
+        const init = {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                query: `query {
+                    event {
+                      id
+                      name
+                      description
+                      timestamp {
+                        date
+                        day
+                        month
+                        year
+                      }
+                    }
+                  }`
+            })
+        }
+
+        const res = await fetch('http://localhost:9000/graphql', init);
+        const data = await res.json();
+
+        return dispatch(actionFunc(year, monthIndex, data));
+    }
+}
+
+export { getNextMonth, getPrevMonth, updateDateString, getMonthEvents };
