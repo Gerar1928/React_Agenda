@@ -6,37 +6,7 @@ import Modal from './components/Modal';
 
 
 const App = () => {
-
-    // const testGraphql = async () => {
-    //     const res = await fetch('http://localhost:9000/graphql', {
-    //         method: 'POST',
-    //         mode: 'cors',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             query: `query {
-    //                 event {
-    //                   id
-    //                   name
-    //                   description
-    //                   timestamp {
-    //                     date
-    //                     day
-    //                     month
-    //                     year
-    //                   }
-    //                 }
-    //               }`
-    //         })
-    //     });
-    //     const data = await res.json();
-
-    //     console.log(data);
-    // }
-
-    // testGraphql();
-
+    
     const addButtonRef = useRef(null);
     const modalRef = useRef(null);
     const overlayRef = useRef(null);

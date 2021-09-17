@@ -11,4 +11,4 @@ ReactDOM.render(
         <App />
     </Provider>, 
     container
-    );
+);

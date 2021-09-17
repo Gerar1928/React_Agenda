@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import { getNextMonth, getPrevMonth, getMonthEvents } from '../redux/actions.js';
+import { moveBetweenMonths, dispatchCurrentMonthEvents } from '../redux/actions.js';
 
 const Date = () => {
 
-    useSelector(store => console.log(store.content));
-    const currentMonth = useSelector(store => store.content.monthIndex);
+    useSelector(async store => console.log(await store.content.events));
+    const monthIndex = useSelector(store => store.content.monthIndex);
     const year = useSelector(store => store.content.year);
     const dateString = useSelector(store => store.content.localeDateString);
     const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
@@ -13,11 +13,19 @@ const Date = () => {
     const dispatch = useDispatch();
 
     const goToNextMonth = () => {
-        dispatch(getMonthEvents(year, currentMonth, getNextMonth));
+        if (monthIndex === 11) {
+            dispatch(dispatchCurrentMonthEvents('NEXT_MONTH', year + 1, 0, moveBetweenMonths));
+        } else {
+            dispatch(dispatchCurrentMonthEvents('NEXT_MONTH', year, monthIndex + 1, moveBetweenMonths))
+        }
     };
 
     const goToPrevtMonth = () => {
-        dispatch(getMonthEvents(year, currentMonth, getPrevMonth));
+        if (monthIndex === 0) {
+            dispatch(dispatchCurrentMonthEvents('PREVIOUS_MONTH', year - 1, 11, moveBetweenMonths));
+        } else {
+            dispatch(dispatchCurrentMonthEvents('PREVIOUS_MONTH', year, monthIndex - 1, moveBetweenMonths));
+        }
     };
 
     return (
@@ -34,6 +42,6 @@ const Date = () => {
             </div>
         </div>
     );
-};
+}
 
 export default Date; 

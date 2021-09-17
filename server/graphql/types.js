@@ -1,5 +1,5 @@
 const { GraphQLObjectType, GraphQLList, GraphQLString, GraphQLInt } = require('graphql');
-const { db } = require('../firebase.js');
+const { admin, db } = require('../firebase.js');
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -43,35 +43,97 @@ const AgendaEvent = new GraphQLObjectType({
 });
 
 const RootSchema = new GraphQLObjectType({
-    name: 'RootSchema',
-    description: 'RootSchema to store events',
+    name: 'Root',
     fields: () => ({
         event: {
             type: new GraphQLList(AgendaEvent),
-            resolve: async () => {
-                const snapshot = await db.collection('Events').get();
+            args: {
+                month: {
+                    type: GraphQLString
+                }
+            },
+            resolve: async (parent, args) => {
                 const events = [];
-                snapshot.forEach(doc => {
-                    const date = new Date(doc.data().Timestamp.toDate());
-                    const event = {
-                        id: doc.id,
-                        name: doc.data().Name,
-                        timestamp: [{
-                            date: date.getDate(),
-                            day: days[date.getDay()],
-                            month: months[date.getMonth()],
-                            year: date.getFullYear()
-                        }],
-                        description: doc.data().Description
-                    }
+                try {
+                    const snapshot = await db.collection('Events').get();
+                    snapshot.forEach(doc => {
+                        const date = new Date(doc.data().timestamp.toDate());
+                        const event = {
+                            id: doc.id,
+                            name: doc.data().name,
+                            timestamp: [{
+                                date: date.getDate(),
+                                day: days[date.getDay()],
+                                month: months[date.getMonth()],
+                                year: date.getFullYear()
+                            }],
+                            description: doc.data().description
+                        }
 
-                    events.push(event);
-                });
-
-                return events;
+                        if (event.timestamp[0].month === args.month) {
+                            events.push(event);
+                        }
+                    });
+    
+                    return events;
+                } catch (err) {
+                    return events;
+                }
             }
         }
     })
 });
 
-module.exports = { RootSchema }
+const Mutation = new GraphQLObjectType({
+    name: 'Mutation',
+    fields: () => ({
+        add_event: {
+            type: new GraphQLList(AgendaEvent),
+            args: {
+                name: {
+                    type: GraphQLString
+                },
+                description: {
+                    type: GraphQLString
+                },
+                date: {
+                    type: GraphQLInt
+                },
+                month: {
+                    type: GraphQLInt
+                },
+                year: {
+                    type: GraphQLInt
+                }
+            },
+            resolve: async (parent, args) => {
+                try {
+                    await db.collection('Events').add({
+                        name: args.name,
+                        timestamp: admin.firestore.Timestamp.fromDate(new Date(args.year, args.month, args.date)),
+                        description: args.description
+                    });
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+        },
+        remove_event: {
+            type: new GraphQLList(AgendaEvent),
+            args: {
+                id: {
+                    type: GraphQLString
+                }
+            },
+            resolve: async (parent, args) => {
+                try {
+                    await db.collection('Events').doc(args.id).delete();
+                } catch (err) {
+                    console.log(err)
+                }
+            }
+        }
+    })
+});
+
+module.exports = { RootSchema, Mutation }

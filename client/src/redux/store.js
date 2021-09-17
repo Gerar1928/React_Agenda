@@ -19,7 +19,7 @@ const getCurrentMonthDays = (year, month) => {
     }
 
     return daysArr;
-};
+}
 
 const getPrevMonthDays = (year, month) => {
     const currentMonthFirstDay = new Date(year, month, 1).getDay();
@@ -37,7 +37,7 @@ const getPrevMonthDays = (year, month) => {
     }
 
     return prevMonthDays;
-};
+}
 
 const getNextMonthDays = (year, month) => {
     const currentMonthLastDay = new Date(year, month + 1, 0).getDay();
@@ -53,7 +53,42 @@ const getNextMonthDays = (year, month) => {
     }
 
     return nextMonthDays;
-};
+}
+
+// Fetches to get current month events. 
+const fecthCurrentMonthEvents = async (month) => {
+    try {
+        const init = {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                query: `query {
+                    event(month: "${month}") {
+                      id
+                      name
+                      description
+                      timestamp {
+                        date
+                        day
+                        month
+                        year
+                      }
+                    }
+                  }`
+            })
+        }
+    
+        const res = await fetch('http://localhost:9000/graphql', init);
+        const data = await res.json();
+    
+        return data.data.event;
+    } catch (err) {
+        console.log(err);
+    }
+}
 
 const initialState = {
     content: {
@@ -67,10 +102,10 @@ const initialState = {
             nextMonthDays: getNextMonthDays(now.getFullYear(), now.getMonth())
         },
         localeDateString: '',
-        events: []
+        events: (async () => await fecthCurrentMonthEvents(monthsArr[now.getMonth()]))()
     }
-};
+}
 
 const store = createStore(reducer, initialState, applyMiddleware(thunk));
 
-export { store, getCurrentMonthDays, getPrevMonthDays, getNextMonthDays }; 
+export { store, getCurrentMonthDays, getPrevMonthDays, getNextMonthDays, fecthCurrentMonthEvents }; 
