@@ -3,22 +3,19 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { moveBetweenMonths, dispatchCurrentMonthEvents } from '../redux/actions.js';
 
 const Date = () => {
-
-    useSelector(async store => console.log(await store.content.events));
     const monthIndex = useSelector(store => store.content.monthIndex);
     const year = useSelector(store => store.content.year);
     const dateString = useSelector(store => store.content.localeDateString);
     const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
-
     const dispatch = useDispatch();
 
-    const goToNextMonth = () => {
+    const goToNextMonth = async () => {
         if (monthIndex === 11) {
             dispatch(dispatchCurrentMonthEvents('NEXT_MONTH', year + 1, 0, moveBetweenMonths));
         } else {
             dispatch(dispatchCurrentMonthEvents('NEXT_MONTH', year, monthIndex + 1, moveBetweenMonths))
         }
-    };
+    }
 
     const goToPrevtMonth = () => {
         if (monthIndex === 0) {
@@ -26,7 +23,7 @@ const Date = () => {
         } else {
             dispatch(dispatchCurrentMonthEvents('PREVIOUS_MONTH', year, monthIndex - 1, moveBetweenMonths));
         }
-    };
+    }
 
     return (
         <div className ='date'>

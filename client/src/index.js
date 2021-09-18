@@ -1,14 +1,54 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { store } from './redux/store.js';
+import { initialState, now, monthsArr } from './redux/initial_state.js';
+import { reducer } from './redux/reducer.js';
 import App from './App';
 
 const container = document.getElementById('root');
 
-ReactDOM.render(
-    <Provider store={ store } >
-        <App />
-    </Provider>, 
-    container
-);
+// Makes sure that events are stored on the store prior rendering.
+(async () => {
+    try {
+        const res = await fetch('http://localhost:9000/graphql', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                query: `query {
+                    event(month: "${monthsArr[now.getMonth()]}") {
+                      id
+                      name
+                      description
+                      timestamp {
+                        date
+                        day
+                        month
+                        year
+                      }
+                    }
+                  }`
+            })
+        });
+        const data = await res.json();
+    
+        initialState.content.events = data.data.event;
+
+        const store = createStore(reducer, initialState, applyMiddleware(thunk));
+
+        ReactDOM.render(
+            <Provider store={ store } >
+                <App />
+            </Provider>, 
+            container
+        );
+
+    } catch (err) {
+        ReactDOM.render(<h1>Error when loading the events.</h1>, container);
+    }
+})();
+

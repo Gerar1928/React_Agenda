@@ -1,7 +1,3 @@
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { reducer } from './reducer.js';
-
 const now = new Date();
 const monthsArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -102,10 +98,8 @@ const initialState = {
             nextMonthDays: getNextMonthDays(now.getFullYear(), now.getMonth())
         },
         localeDateString: '',
-        events: (async () => await fecthCurrentMonthEvents(monthsArr[now.getMonth()]))()
+        events: []
     }
 }
 
-const store = createStore(reducer, initialState, applyMiddleware(thunk));
-
-export { store, getCurrentMonthDays, getPrevMonthDays, getNextMonthDays, fecthCurrentMonthEvents }; 
+export { initialState, now, monthsArr, getCurrentMonthDays, getPrevMonthDays, getNextMonthDays, fecthCurrentMonthEvents }; 

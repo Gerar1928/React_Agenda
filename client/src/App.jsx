@@ -6,7 +6,6 @@ import Modal from './components/Modal';
 
 
 const App = () => {
-    
     const addButtonRef = useRef(null);
     const modalRef = useRef(null);
     const overlayRef = useRef(null);
@@ -20,6 +19,6 @@ const App = () => {
             <Modal modalRef={ modalRef } overlayRef={ overlayRef }/>
         </div>
     );
-};
+}
 
 export default App;

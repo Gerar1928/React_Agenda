@@ -1,4 +1,4 @@
-import { getCurrentMonthDays, getPrevMonthDays, getNextMonthDays, fecthCurrentMonthEvents } from './store.js';
+import { now, getCurrentMonthDays, getPrevMonthDays, getNextMonthDays, fecthCurrentMonthEvents } from './initial_state.js';
 
 const monthsArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -32,7 +32,7 @@ const updateDateString = (stateContent, daySelected, localDateString) => {
     }
 }
 
-const dispatchCurrentMonthEvents = (TYPE, year, monthIndex, actionFunc) => {
+const dispatchCurrentMonthEvents = (TYPE, year = now.getFullYear(), monthIndex = now.getMonth(), actionFunc) => {
     return async dispatch => {
         const data = await fecthCurrentMonthEvents(monthsArr[monthIndex]);
         return dispatch(actionFunc(TYPE, year, monthIndex, data));

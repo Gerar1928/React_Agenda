@@ -1,7 +1,9 @@
+import { useSelector } from 'react-redux';
 import Button from './Button';
 import Event from './Event';
 
 const EventsContainer = ({ addButtonRef, modalRef, overlayRef }) => {
+    const arrOfEvents = useSelector(state => state.content.events);
 
     // Opens modal when clicking.
     const openModal = () => {
@@ -20,15 +22,10 @@ const EventsContainer = ({ addButtonRef, modalRef, overlayRef }) => {
                 <Button action='Remove event' buttonClass='remove-event'/>
             </div>
             <div className='events'>
-                <Event />
-                <Event />
-                <Event />
-                <Event />
-                <Event />
-                <Event />
+                { arrOfEvents.map((event, index) => <Event key={ index } eventId={ event.id } eventName={ event.name } eventDate={ event.timestamp[0] } description={ event.description } />) }
             </div>
         </div>
     );
-};
+}
 
 export default EventsContainer;
