@@ -48,7 +48,7 @@ const container = document.getElementById('root');
         );
 
     } catch (err) {
-        ReactDOM.render(<h1>Error when loading the events.</h1>, container);
+        ReactDOM.render(<h1>An error has occurred while loading the page.</h1>, container);
     }
 })();
 

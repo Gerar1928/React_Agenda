@@ -6,7 +6,10 @@ import Modal from './components/Modal';
 
 
 const App = () => {
+
+    // Refs
     const addButtonRef = useRef(null);
+    const removeButtonRef = useRef(null);
     const modalRef = useRef(null);
     const overlayRef = useRef(null);
 
@@ -14,7 +17,7 @@ const App = () => {
         <div className='main-container' >
             <div className='secondary-container'>
                 <Calendar addButtonRef={ addButtonRef }/>
-                <EventsContainer addButtonRef={ addButtonRef } modalRef={ modalRef } overlayRef={ overlayRef }/>
+                <EventsContainer addButtonRef={ addButtonRef } removeButtonRef={ removeButtonRef } modalRef={ modalRef } overlayRef={ overlayRef }/>
             </div>
             <Modal modalRef={ modalRef } overlayRef={ overlayRef }/>
         </div>
