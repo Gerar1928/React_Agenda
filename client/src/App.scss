@@ -24,6 +24,20 @@ $font-stack: 'Titillium Web', sans-serif;
     }
 }
 
+%modal-styling {
+    background-color: $primary-color;
+    border: solid 1px #6C6768;
+    border-radius: 10px;
+    display: block;
+    padding: 10px;
+    position: fixed;
+    right: 35%;
+    transform: scale(0);
+    transition: transform 0.4s linear;
+    width: 350px;
+    z-index: 1;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -209,18 +223,8 @@ body {
 }
 
 .modal {
-    background-color: $primary-color;
-    border: solid 1px #6C6768;
-    border-radius: 10px;
-    display: block;
-    padding: 10px;
-    position: fixed;
-    right: 35%;
-    transform: scale(0);
-    transition: transform 0.4s linear;
+    @extend %modal-styling;
     top: 10%;
-    width: 350px;
-    z-index: 1;
 
     button {
         @extend %button;
@@ -270,6 +274,25 @@ body {
         &:focus {
             outline: none;
         }
+    }
+}
+
+.confirmation-modal {
+    @extend %modal-styling;
+    text-align: center;
+    top: 30%;
+
+    input {
+        @extend %button;
+        border: none;
+        border-radius: 5px !important;
+        display: block;
+        margin: 5px auto;
+        padding: 5px;
+    }
+
+    label {
+        font-size: 25px;
     }
 }
 

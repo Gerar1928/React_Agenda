@@ -1,12 +1,17 @@
 import { useSelector } from 'react-redux';
 import Button from './Button';
+import ConfirmationModal from './ConfirmationModal';
 
-const Modal = ({ modalRef, overlayRef }) => {
+const Modal = ({ modalRef, overlayRef, confirmationModalRef, addButtonRef, removeButtonRef }) => {
 
     // Removes active class when clicking on overlay.
     const handleOverlayEvent = () => {
+        if (modalRef.current.classList.contains('active')) {
+            modalRef.current.classList.remove('active');
+        } else if (confirmationModalRef.current.classList.contains('active')) {
+            confirmationModalRef.current.classList.remove('active');
+        }
         overlayRef.current.classList.remove('active');
-        modalRef.current.classList.remove('active')
     } 
 
     return (
@@ -27,9 +32,10 @@ const Modal = ({ modalRef, overlayRef }) => {
                     <Button action={ 'Submit Event' }/>
                 </form>
             </div>
+            <ConfirmationModal removeButtonRef={ removeButtonRef } confirmationModalRef={ confirmationModalRef }/>
             <div className='overlay' ref={ overlayRef } onClick={ handleOverlayEvent }></div>
         </>
     );
-};
+}
 
 export default Modal;
