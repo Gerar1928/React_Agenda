@@ -67,7 +67,6 @@ const fecthCurrentMonthEvents = async (month) => {
                       name
                       description
                       timestamp {
-                        date
                         day
                         month
                         year

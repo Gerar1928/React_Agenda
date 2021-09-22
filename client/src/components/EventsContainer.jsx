@@ -5,7 +5,7 @@ import NoEventsMessage from './NoEventsMessage';
 
 const EventsContainer = ({ addButtonRef, removeButtonRef, modalRef, confirmationModalRef, overlayRef }) => {
     const arrOfEvents = useSelector(state => state.content.events);
-
+    
     // Opens modal when clicking.
     const openModal = () => {
         modalRef.current.classList.add('active');

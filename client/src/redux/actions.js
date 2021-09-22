@@ -32,6 +32,16 @@ const updateDateString = (stateContent, daySelected, localDateString) => {
     }
 }
 
+const updateEvents = (TYPE, state, eventsUpdated) => {
+    return {
+        type: TYPE,
+        content: {
+            ...state,
+            events: eventsUpdated
+        }
+    }
+}
+
 const dispatchCurrentMonthEvents = (TYPE, year = now.getFullYear(), monthIndex = now.getMonth(), actionFunc) => {
     return async dispatch => {
         const data = await fecthCurrentMonthEvents(monthsArr[monthIndex]);
@@ -39,4 +49,4 @@ const dispatchCurrentMonthEvents = (TYPE, year = now.getFullYear(), monthIndex =
     }
 }
 
-export { moveBetweenMonths, updateDateString, dispatchCurrentMonthEvents };
+export { moveBetweenMonths, updateDateString, updateEvents, dispatchCurrentMonthEvents };

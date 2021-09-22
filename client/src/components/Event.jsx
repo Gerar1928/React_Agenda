@@ -3,7 +3,7 @@ import { monthsArr } from '../redux/initial_state.js';
 const Event = ({ eventId, eventName, eventDate, description  }) => {
 
     // Converts date to string.
-    const dateStr = new Date (eventDate.year, monthsArr.indexOf(eventDate.month), eventDate.date)
+    const dateStr = new Date (eventDate.year, monthsArr.indexOf(eventDate.month), eventDate.day)
         .toLocaleDateString('en-EN', { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' });
 
     return (

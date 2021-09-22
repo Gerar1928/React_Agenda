@@ -25,7 +25,6 @@ const container = document.getElementById('root');
                       name
                       description
                       timestamp {
-                        date
                         day
                         month
                         year
@@ -49,6 +48,7 @@ const container = document.getElementById('root');
 
     } catch (err) {
         ReactDOM.render(<h1>An error has occurred while loading the page.</h1>, container);
+        console.log(err);
     }
 })();
 

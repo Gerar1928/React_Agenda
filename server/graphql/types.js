@@ -3,16 +3,11 @@ const { admin, db } = require('../firebase.js');
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
 const Timestamp = new GraphQLObjectType({
     name: 'Timestamp',
     fields: () => ({
-        date: {
-            type: GraphQLInt
-        },
         day: {
-            type: GraphQLString
+            type: GraphQLInt
         },
         month: {
             type: GraphQLString
@@ -62,8 +57,7 @@ const RootSchema = new GraphQLObjectType({
                             id: doc.id,
                             name: doc.data().name,
                             timestamp: [{
-                                date: date.getDate(),
-                                day: days[date.getDay()],
+                                day: date.getDate(),
                                 month: months[date.getMonth()],
                                 year: date.getFullYear()
                             }],
@@ -90,13 +84,16 @@ const Mutation = new GraphQLObjectType({
         add_event: {
             type: new GraphQLList(AgendaEvent),
             args: {
+                id: {
+                    type: GraphQLString
+                },
                 name: {
                     type: GraphQLString
                 },
                 description: {
                     type: GraphQLString
                 },
-                date: {
+                day: {
                     type: GraphQLInt
                 },
                 month: {
@@ -108,9 +105,9 @@ const Mutation = new GraphQLObjectType({
             },
             resolve: async (parent, args) => {
                 try {
-                    await db.collection('Events').add({
+                    await db.collection('Events').doc(args.id).set({
                         name: args.name,
-                        timestamp: admin.firestore.Timestamp.fromDate(new Date(args.year, args.month, args.date)),
+                        timestamp: admin.firestore.Timestamp.fromDate(new Date(args.year, args.month, args.day)),
                         description: args.description
                     });
                 } catch (err) {

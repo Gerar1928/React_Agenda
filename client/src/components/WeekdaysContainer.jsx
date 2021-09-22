@@ -9,6 +9,6 @@ const WeekdaysContainer = () => {
             { weekdaysArr.map((day, index) => <Weekday key={index} day={ day }/>) }
         </div>
     );
-};
+}
 
 export default WeekdaysContainer;
