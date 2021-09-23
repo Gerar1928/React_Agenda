@@ -1,11 +1,13 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from './Button';
 import Event from './Event';
 import NoEventsMessage from './NoEventsMessage';
+import { storeEventId } from '../redux/actions.js';
 
 const EventsContainer = ({ addButtonRef, removeButtonRef, modalRef, confirmationModalRef, overlayRef }) => {
-    const arrOfEvents = useSelector(state => state.content.events);
-    
+    const dispatch = useDispatch();
+    const state = useSelector(state => state.content);
+
     // Opens modal when clicking.
     const openModal = () => {
         modalRef.current.classList.add('active');
@@ -22,6 +24,7 @@ const EventsContainer = ({ addButtonRef, removeButtonRef, modalRef, confirmation
     const handleRemoveEventBtn = (e) => {
         if (e.target.classList.contains('event')) {
             removeButtonRef.current.classList.add('active');
+            dispatch(storeEventId(state, e.target.dataset.id))
         } else {
             removeButtonRef.current.classList.remove('active');
         }
@@ -37,7 +40,7 @@ const EventsContainer = ({ addButtonRef, removeButtonRef, modalRef, confirmation
                 <Button action='Remove event' buttonClass='remove-event' btnRef={ removeButtonRef } handleClick={ openConfirmationModal }/>
             </div>
             <div className='events' onClick={ handleRemoveEventBtn }>
-                { arrOfEvents.length === 0 ? <NoEventsMessage /> : arrOfEvents.map((event, index) => <Event key={ index } eventId={ event.id } eventName={ event.name } eventDate={ event.timestamp[0] } description={ event.description } />) }
+                { useSelector(state => state.content.events.length === 0 ? <NoEventsMessage /> : state.content.events.map((event, index) => <Event key={ index } eventId={ event.id } eventName={ event.name } eventDate={ event.timestamp[0] } description={ event.description } />)) }
             </div>
         </div>
     );

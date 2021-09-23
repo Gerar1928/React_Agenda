@@ -2,11 +2,11 @@ import Date from './Date';
 import WeekdaysContainer from './WeekdaysContainer';
 import DaysContainer from './DaysContainer';
 
-const Calendar = ({ addButtonRef }) => {
+const Calendar = ({ addButtonRef, removeButtonRef }) => {
 
     return (
         <div className='calendar'>
-            <Date />
+            <Date addButtonRef={ addButtonRef } removeButtonRef={ removeButtonRef }/>
             <WeekdaysContainer />
             <DaysContainer addButtonRef={ addButtonRef }/>
         </div>

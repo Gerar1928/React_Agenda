@@ -16,11 +16,13 @@ const moveBetweenMonths = (TYPE, year, monthIndex, events) => {
                 nextMonthDays: getNextMonthDays(year, monthIndex)
             },
             localeDateString: '',
+            eventSelectedId: '',
             events: events
         }
     }
 }
 
+// Adds local date to the store.
 const updateDateString = (stateContent, daySelected, localDateString) => {
     return {
         type: 'UPDATE_DATE_STRING',
@@ -32,11 +34,23 @@ const updateDateString = (stateContent, daySelected, localDateString) => {
     }
 }
 
-const updateEvents = (TYPE, state, eventsUpdated) => {
+// Adds event id to the store.
+const storeEventId = (stateContent, eventId) => {
+    return {
+        type: 'STORE_EVENT_ID',
+        content: {
+            ...stateContent,
+            eventSelectedId: eventId
+        }
+    }
+}
+
+// Updates events array on the store.
+const updateEvents = (TYPE, stateContent, eventsUpdated) => {
     return {
         type: TYPE,
         content: {
-            ...state,
+            ...stateContent,
             events: eventsUpdated
         }
     }
@@ -49,4 +63,4 @@ const dispatchCurrentMonthEvents = (TYPE, year = now.getFullYear(), monthIndex =
     }
 }
 
-export { moveBetweenMonths, updateDateString, updateEvents, dispatchCurrentMonthEvents };
+export { moveBetweenMonths, updateDateString, storeEventId, updateEvents, dispatchCurrentMonthEvents };

@@ -1,13 +1,15 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from './Button';
 import ConfirmationModal from './ConfirmationModal';
 import { monthsArr } from '../redux/initial_state.js';
+import { updateEvents } from '../redux/actions.js';
 
 const Modal = ({ modalRef, overlayRef, confirmationModalRef, addButtonRef, removeButtonRef }) => {
 
+    const dispatch = useDispatch();
     const arrOfEvents = useSelector(state => state.content.events);
-    console.log(arrOfEvents);
-
+    const state = useSelector(state => state.content);
+    
     // Adds event to database and updates store.
     const addEvent = async (e) => {
         e.preventDefault();
@@ -42,8 +44,8 @@ const Modal = ({ modalRef, overlayRef, confirmationModalRef, addButtonRef, remov
             }
         
             await fetch('http://localhost:9000/graphql', init);
-            
             arrOfEvents.push(event);
+            dispatch(updateEvents('UPDATE_EVENTS', state, arrOfEvents));
         } catch (err) {
             console.log(err);
         } finally {
@@ -70,7 +72,7 @@ const Modal = ({ modalRef, overlayRef, confirmationModalRef, addButtonRef, remov
         <>
             <div className='modal' ref={ modalRef } onSubmit={ addEvent }>
                 <h1>Add Event</h1>
-                <form action='POST'>
+                <form method='POST'>
                     <label>Name</label>
                     <input type='text' name='event-name' required/>
                     <label>Month</label>
@@ -84,7 +86,7 @@ const Modal = ({ modalRef, overlayRef, confirmationModalRef, addButtonRef, remov
                     <Button action={ 'Submit Event' }/>
                 </form>
             </div>
-            <ConfirmationModal removeButtonRef={ removeButtonRef } confirmationModalRef={ confirmationModalRef }/>
+            <ConfirmationModal overlayRef={ overlayRef } removeButtonRef={ removeButtonRef } confirmationModalRef={ confirmationModalRef }/>
             <div className='overlay' ref={ overlayRef } onClick={ handleOverlayEvent }></div>
         </>
     );

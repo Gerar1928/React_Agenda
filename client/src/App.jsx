@@ -16,7 +16,7 @@ const App = () => {
     return (
         <div className='main-container' >
             <div className='secondary-container'>
-                <Calendar addButtonRef={ addButtonRef }/>
+                <Calendar addButtonRef={ addButtonRef } removeButtonRef={ removeButtonRef }/>
                 <EventsContainer addButtonRef={ addButtonRef } removeButtonRef={ removeButtonRef } modalRef={ modalRef } confirmationModalRef={ confirmationModalRef } overlayRef={ overlayRef }/>
             </div>
             <Modal modalRef={ modalRef } overlayRef={ overlayRef } confirmationModalRef={ confirmationModalRef } addButtonRef={ addButtonRef } removeButtonRef={ removeButtonRef }/>

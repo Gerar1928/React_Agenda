@@ -97,6 +97,7 @@ const initialState = {
             nextMonthDays: getNextMonthDays(now.getFullYear(), now.getMonth())
         },
         localeDateString: '',
+        eventSelectedId: '',
         events: []
     }
 }
