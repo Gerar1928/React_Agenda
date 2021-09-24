@@ -1,6 +1,6 @@
 import { monthsArr } from '../redux/initial_state.js';
 
-const Event = ({ eventId, eventName, eventDate, description  }) => {
+const Event = ({ eventId, eventName, eventDate, description }) => {
 
     // Converts date to string.
     const dateStr = new Date (eventDate.year, monthsArr.indexOf(eventDate.month), eventDate.day)

@@ -41,7 +41,7 @@ const ConfirmationModal = ({ overlayRef, removeButtonRef, confirmationModalRef }
     return (
         <div className='confirmation-modal' ref={ confirmationModalRef }>
             <form method='POST' onSubmit={ removeEvent }>
-                <label>Are you sure you want to remove { selectedEvent ? selectedEvent.name : ' '} this event?</label>
+                <label>Are you sure you want to remove { selectedEvent ? selectedEvent.name : ' '} event?</label>
                 <input type="submit" value="Yes, remove event."/>
             </form>
         </div>
