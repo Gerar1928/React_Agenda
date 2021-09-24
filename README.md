@@ -29,3 +29,12 @@ be removed from the events container.
 ![GraphQL](https://img.shields.io/badge/-GraphQL-E10098?style=for-the-badge&logo=graphql&logoColor=white)
 ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)
 ![cypress](https://img.shields.io/badge/-cypress-%23E5E5E5?style=for-the-badge&logo=cypress&logoColor=058a5e)
+
+## Images
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Gerar1928/React_Agenda/master/images/Web_agenda.PNG" width="200px" />
+  <img src="https://raw.githubusercontent.com/Gerar1928/React_Agenda/master/images/Adding_an_event.PNG" width="200px" />
+  <img src="https://raw.githubusercontent.com/Gerar1928/React_Agenda/master/images/Events_displayed.PNG" width="200px" />
+  <img src="https://raw.githubusercontent.com/Gerar1928/React_Agenda/master/images/Removing_event.PNG" width="200px" />
+</p>
