@@ -8,7 +8,7 @@ either previous month (when clicking on left arrow) or next month (when clicking
 ## Add an event
 
 When you click on one of the days that you want to create an event the `Add event` button will be enabled, right after you click on the `Add event` button and modal will pop up 
-and it will ask you for the name of your event and the description about it. Also, you can close the modal by clicking outside of it. 
+and it will ask you for the name of your event and the description about it. Also, you can close the modal by clicking outside of it. Also, when you click on the days, the header will be updated with date that you selected.
 
 ## Removing an event
 
