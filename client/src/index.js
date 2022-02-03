@@ -33,6 +33,7 @@ const container = document.getElementById('root');
                   }`
             })
         });
+        
         const data = await res.json();
     
         initialState.content.events = data.data.event;

@@ -1,7 +1,6 @@
 import './App.scss';
 import { useRef } from 'react';
-import Calendar from './components/Calendar';
-import EventsContainer from './components/EventsContainer';
+import Agenda from './components/Agenda';
 import Modal from './components/Modal';
 
 const App = () => {
@@ -14,12 +13,20 @@ const App = () => {
     const overlayRef = useRef(null);
 
     return (
-        <div className='main-container' >
-            <div className='secondary-container'>
-                <Calendar addButtonRef={ addButtonRef } removeButtonRef={ removeButtonRef }/>
-                <EventsContainer addButtonRef={ addButtonRef } removeButtonRef={ removeButtonRef } modalRef={ modalRef } confirmationModalRef={ confirmationModalRef } overlayRef={ overlayRef }/>
-            </div>
-            <Modal modalRef={ modalRef } overlayRef={ overlayRef } confirmationModalRef={ confirmationModalRef } addButtonRef={ addButtonRef } removeButtonRef={ removeButtonRef }/>
+        <div>
+            <Agenda 
+                addButtonRef={ addButtonRef } 
+                removeButtonRef={ removeButtonRef } 
+                modalRef={ modalRef } 
+                confirmationModalRef={ confirmationModalRef } 
+                overlayRef={ overlayRef } 
+            />
+            <Modal modalRef={ modalRef } 
+                overlayRef={ overlayRef } 
+                confirmationModalRef={ confirmationModalRef } 
+                addButtonRef={ addButtonRef } 
+                removeButtonRef={ removeButtonRef }
+            />
         </div>
     );
 }
