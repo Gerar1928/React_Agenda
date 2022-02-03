@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import Button from './Button';
+import Options from './Options';
 import Event from './Event';
 import NoEventsMessage from './NoEventsMessage';
 import { storeEventId } from '../redux/actions.js';
@@ -32,13 +32,12 @@ const EventsContainer = ({ addButtonRef, removeButtonRef, modalRef, confirmation
 
     return (
         <div className='eventsContainer'>
-            <div className='options'>
-                <div className='options-header'>
-                    <h1>Event Options</h1>
-                </div>
-                <Button action='Add event' buttonClass='add-event' btnRef={ addButtonRef } handleClick={ openModal } />
-                <Button action='Remove event' buttonClass='remove-event' btnRef={ removeButtonRef } handleClick={ openConfirmationModal }/>
-            </div>
+            <Options 
+                addButtonRef={ addButtonRef }
+                removeButtonRef={ removeButtonRef }
+                openModal={ openModal }
+                openConfirmationModal={ openConfirmationModal }
+            />
             <div className='events' onClick={ handleRemoveEventBtn }>
                 { useSelector(state => state.content.events.length === 0 ? <NoEventsMessage /> : state.content.events.map((event, index) => <Event key={ index } eventId={ event.id } eventName={ event.name } eventDate={ event.timestamp[0] } description={ event.description } />)) }
             </div>
