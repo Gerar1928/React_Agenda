@@ -1,0 +1,18 @@
+└── App
+    ├── .secondary-container
+    │    ├── Calendar
+    │    │   ├── Date
+    │    │   ├── WeekdaysContainer
+    │    │   │   ├── Weekday
+    │    │   ├── DaysContainer
+    │    │       ├── Day    
+    │    ├── EventsContainer
+    │    │    ├── .options
+    │    │    │    ├── Button
+    │    │    ├── .events
+    │    │    │    ├── NoEventsMessage
+    │    │    │    ├── Event
+    ├── Modal
+    │    ├── #modal
+    │    │    ├── Button
+    │    │    ├── ConfirmationModal
