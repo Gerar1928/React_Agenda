@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Button from './Button';
 import ConfirmationModal from './ConfirmationModal';
-import { monthsArr } from '../redux/initial_state.js';
+import { monthsArr } from '../common/months.js';
 import { updateEvents } from '../redux/actions.js';
 
 const Modal = ({ modalRef, overlayRef, confirmationModalRef, addButtonRef, removeButtonRef }) => {
 
     const dispatch = useDispatch();
-    const arrOfEvents = useSelector(state => state.content.events);
-    const state = useSelector(state => state.content);
+    const arrOfEvents = useSelector(state => state.eventsContent.events);
+    const state = useSelector(state => state);
     
     // Adds event to database and updates store.
     const addEvent = async (e) => {
@@ -45,7 +45,7 @@ const Modal = ({ modalRef, overlayRef, confirmationModalRef, addButtonRef, remov
         
             await fetch('http://localhost:9000/graphql', init);
             arrOfEvents.push(event);
-            dispatch(updateEvents('UPDATE_EVENTS', state, arrOfEvents));
+            dispatch(updateEvents('ADD_EVENT', state, arrOfEvents));
         } catch (err) {
             console.log(err);
         } finally {
@@ -76,11 +76,11 @@ const Modal = ({ modalRef, overlayRef, confirmationModalRef, addButtonRef, remov
                     <label>Name</label>
                     <input type='text' name='event-name' required/>
                     <label>Month</label>
-                    <input type='text' name='month' value={ useSelector(state => state.content.month) } readOnly/>
+                    <input type='text' name='month' value={ useSelector(state => state.eventsContent.month) } readOnly/>
                     <label>Day</label>
-                    <input type='number' name='day' value={ useSelector(state => state.content.daySelected) } readOnly/>
+                    <input type='number' name='day' value={ useSelector(state => state.eventsContent.daySelected) } readOnly/>
                     <label>Year</label>
-                    <input type='number' name='year' value= { useSelector(state => state.content.year) } readOnly/>
+                    <input type='number' name='year' value= { useSelector(state => state.eventsContent.year) } readOnly/>
                     <label>Description</label>
                     <textarea name='event-description' required></textarea>
                     <Button action={ 'Submit Event' }/>

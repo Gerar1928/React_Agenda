@@ -1,4 +1,4 @@
-import { monthsArr } from '../redux/initial_state.js';
+import { monthsArr } from '../common/months.js';
 
 const Event = ({ eventId, eventName, eventDate, description }) => {
 

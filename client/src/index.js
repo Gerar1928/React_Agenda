@@ -1,11 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { initialState, now, monthsArr } from './redux/initial_state.js';
-import { reducer } from './redux/reducer.js';
 import App from './App';
+import { monthsArr } from './common/months.js';
+import { store } from './redux/store.js';
 
 const container = document.getElementById('root');
 
@@ -20,7 +18,7 @@ const container = document.getElementById('root');
             },
             body: JSON.stringify({
                 query: `query {
-                    event(month: "${monthsArr[now.getMonth()]}") {
+                    event(month: "${ monthsArr[new Date().getMonth()] }") {
                       id
                       name
                       description
@@ -36,9 +34,7 @@ const container = document.getElementById('root');
         
         const data = await res.json();
     
-        initialState.content.events = data.data.event;
-
-        const store = createStore(reducer, initialState, applyMiddleware(thunk));
+        // initialState.content.events = data.data.event;
 
         ReactDOM.render(
             <Provider store={ store } >

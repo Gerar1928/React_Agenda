@@ -1,12 +1,14 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { moveBetweenMonths, dispatchCurrentMonthEvents } from '../redux/actions.js';
+import { monthsArr } from '../common/months.js';
 
-const Date = ({ addButtonRef, removeButtonRef }) => {
-    const monthIndex = useSelector(store => store.content.monthIndex);
-    const year = useSelector(store => store.content.year);
-    const dateString = useSelector(store => store.content.localeDateString);
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+export default function Date({ addButtonRef, removeButtonRef }) {
+    useSelector(store => console.log(store))
+
+    const monthIndex = useSelector(store => store.calendarContent.monthIndex);
+    const year = useSelector(store => store.calendarContent.year);
+    const dateString = useSelector(store => store.calendarContent.localeDateString);
     const dispatch = useDispatch();
 
     const handleButtons = () => {
@@ -44,7 +46,7 @@ const Date = ({ addButtonRef, removeButtonRef }) => {
                 <FiChevronLeft size='45px' cursor='pointer' onClick={ goToPrevtMonth }/>
             </div>
             <div className='month'>
-                <h1>{ months[useSelector(store => store.content.monthIndex)] }</h1>
+                <h1>{ monthsArr[useSelector(store => store.calendarContent.monthIndex)] }</h1>
                 <h2>{ dateString ? dateString : year }</h2>
             </div>
             <div className='right-icon' >
@@ -53,5 +55,3 @@ const Date = ({ addButtonRef, removeButtonRef }) => {
         </div>
     );
 }
-
-export default Date; 

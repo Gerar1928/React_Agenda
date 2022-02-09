@@ -1,16 +1,15 @@
+/* eslint-disable no-array-constructor */
 const now = new Date();
-const monthsArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
 const getCurrentMonthDays = (year, month) => {
     const currentMonthLastDay = new Date(year, month + 1, 0).getDate();
-    const daysArr = [];
+    const daysArr = new Array();
 
     for(let i = 1; i <= currentMonthLastDay; i++) {
         const isWeekend = new Date(year, month, i).getDay();
         if (isWeekend === 0 || isWeekend === 6) {
-            daysArr.push({ day: i, weekend: true });
+            daysArr.push({ day: i, isWeekend: true });
         } else {
-            daysArr.push({ day: i, weekend: false });
+            daysArr.push({ day: i, isWeekend: false });
         }
     }
 
@@ -20,7 +19,7 @@ const getCurrentMonthDays = (year, month) => {
 const getPrevMonthDays = (year, month) => {
     const currentMonthFirstDay = new Date(year, month, 1).getDay();
     const prevMonthLastDay = new Date(year, month, 0).getDate();
-    const prevMonthDays = [];
+    const prevMonthDays = new Array();
 
     for(let i = currentMonthFirstDay; i > 0; i--){
         const prevDay = (prevMonthLastDay - i) + 1;
@@ -37,7 +36,7 @@ const getPrevMonthDays = (year, month) => {
 
 const getNextMonthDays = (year, month) => {
     const currentMonthLastDay = new Date(year, month + 1, 0).getDay();
-    const nextMonthDays = [];
+    const nextMonthDays = new Array();
 
     for(let i = 1; i <= (6 - currentMonthLastDay); i++) {
         const isWeekend = new Date(year, month + 1, i).getDay();
@@ -85,21 +84,10 @@ const fecthCurrentMonthEvents = async (month) => {
     }
 }
 
-const initialState = {
-    content: {
-        monthIndex: now.getMonth(),
-        year: now.getFullYear(),
-        month: monthsArr[now.getMonth()],
-        daySelected: 0,
-        days: {
-            prevMonthDays: getPrevMonthDays(now.getFullYear(), now.getMonth()),
-            currentMonthDays: getCurrentMonthDays(now.getFullYear(), now.getMonth()),
-            nextMonthDays: getNextMonthDays(now.getFullYear(), now.getMonth())
-        },
-        localeDateString: '',
-        eventSelectedId: '',
-        events: []
-    }
-}
+// const initialState = {
+//     content: {
+//         localeDateString: '',
+//     }
+// }
 
-export { initialState, now, monthsArr, getCurrentMonthDays, getPrevMonthDays, getNextMonthDays, fecthCurrentMonthEvents }; 
+export { fecthCurrentMonthEvents }; 

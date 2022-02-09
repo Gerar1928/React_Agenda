@@ -1,6 +1,8 @@
-import { now, getCurrentMonthDays, getPrevMonthDays, getNextMonthDays, fecthCurrentMonthEvents } from './initial_state.js';
+import { fecthCurrentMonthEvents } from './initial_state.js';
+import { getCurrentMonthDays, getPrevMonthDays, getNextMonthDays } from '../common/Calendar.js';
+import { monthsArr } from '../common/months.js';
 
-const monthsArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const { getFullYear, getMonth } = new Date();
 
 const moveBetweenMonths = (TYPE, year, monthIndex, events) => {
     return {
@@ -56,7 +58,7 @@ const updateEvents = (TYPE, stateContent, eventsUpdated) => {
     }
 }
 
-const dispatchCurrentMonthEvents = (TYPE, year = now.getFullYear(), monthIndex = now.getMonth(), actionFunc) => {
+const dispatchCurrentMonthEvents = (TYPE, year = getFullYear(), monthIndex = getMonth(), actionFunc) => {
     return async dispatch => {
         const data = await fecthCurrentMonthEvents(monthsArr[monthIndex]);
         return dispatch(actionFunc(TYPE, year, monthIndex, data));

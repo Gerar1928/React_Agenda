@@ -7,7 +7,7 @@
     │    │   ├── DaysContainer
     │    │       ├── Day    
     │    ├── EventsContainer
-    │    │    ├── .options
+    │    │    ├── Options
     │    │    │    ├── Button
     │    │    ├── .events
     │    │    │    ├── NoEventsMessage

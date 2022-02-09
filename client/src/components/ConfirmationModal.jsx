@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { updateEvents } from "../redux/actions";
 
-const ConfirmationModal = ({ overlayRef, removeButtonRef, confirmationModalRef }) => {
+export default function ConfirmationModal({ overlayRef, removeButtonRef, confirmationModalRef }) {
     const dispatch = useDispatch();
-    let selectedId = useSelector(state => state.content.eventSelectedId);
-    let selectedEvent = useSelector(state => state.content.events.find(e => e.id === selectedId));
-    const newArrOfEvents = useSelector(state => state.content.events.filter(e => e.id !== selectedId));
-    const state = useSelector(state => state.content);
+    let selectedId = useSelector(state => state.eventsContent.eventSelectedId);
+    let selectedEvent = useSelector(state => state.eventsContent.events.find(e => e.id === selectedId));
+    const newArrOfEvents = useSelector(state => state.eventsContent.events.filter(e => e.id !== selectedId));
+    const state = useSelector(state => state);
 
     const removeEvent = async (e) => {
         e.preventDefault();
@@ -47,5 +47,3 @@ const ConfirmationModal = ({ overlayRef, removeButtonRef, confirmationModalRef }
         </div>
     );
 }
-
-export default ConfirmationModal;

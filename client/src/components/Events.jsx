@@ -5,7 +5,7 @@ import NoEventsMessage from './NoEventsMessage';
 export default function Events({ handleRemoveEventBtn }) {
     return (
         <div className='events' onClick={ handleRemoveEventBtn }>
-            { useSelector(state => state.content.events.length === 0 
+            { useSelector(state => state.eventsContent.events.length === 0 
                 ? <NoEventsMessage /> 
                 : state.content.events.map((event, index) => <Event 
                                                                 key={ index } 
